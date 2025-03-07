@@ -1,24 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { Routes, Route } from "react-router-dom";
+import Layout from "./Layout";
+import Dashboard from "./Components/Dashboard";
+import AddEvent from "./Components/AddEvent";
+import AddCategory from "./Components/AddCategory";
+import AddGallary from "./Components/AddGallary";
+import UserProfile from "./Components/UserProfile";
+import ChangePassword from "./Components/ChangePassword";
+import ContactList from "./Components/ContactList";
+import Login from "./Components/Login";
+import "./Styles/main.css";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Routes>
+        <Route element={<Layout />}>
+          <Route path="/Dashboard" element={<Dashboard />}/>
+          <Route path="/" element={<Login />}/>
+          <Route path="/AddEvent" element={<AddEvent />}/>
+          <Route path="/AddCategory" element={<AddCategory />}/>
+          <Route path="/AddGallary" element={<AddGallary />}/>
+          <Route path="/UserProfile" element={<UserProfile />}/>
+          <Route path="/ChangePassword" element={<ChangePassword />}/>
+          <Route path="/ContactList" element={<ContactList />}/>
+          <Route path="/" element={<Dashboard />}/>
+        </Route>
+      </Routes>
+    </>
   );
 }
 
