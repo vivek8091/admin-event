@@ -72,13 +72,6 @@
     height: 100vh;
 }
 
-.content {
-    flex: 1;
-    margin-left: 230px;
-    overflow-y: auto;
-    height: 100vh;
-}
-
 .sidebar {
     width: 230px;
     height: 100vh;
@@ -91,6 +84,58 @@
     bottom: 0;
 }
 
+/* Topbar Styling */
+
+.header-admin {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #006bff;
+    color: #fff;
+    width: calc(100% - 230px);
+    padding: 10px 15px;
+
+    position: fixed;
+    top: 0;
+    left: 230px;
+    z-index: 1000;
+}
+
+.admin-profile {
+    display: flex;
+    align-items: center;
+    height: 65px;
+}
+
+.admin-avtar {
+    width: 50px;
+    border-radius: 50%;
+}
+
+.account {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+/* Content Area */
+.content {
+    flex: 1;
+    margin-left: 230px;
+    /* Keeps space for the sidebar */
+    margin-top: 65px;
+    /* Adjust this based on the height of the topbar */
+    overflow-y: auto;
+    height: calc(100vh - 65px);
+    /* Adjust height to fit below the topbar */
+    padding: 20px;
+}
+
+/* Sidebar Menu */
 .menu {
     list-style: none;
     padding: 0;
@@ -139,50 +184,17 @@ hr {
 
 /* Dashboard page CSS */
 
-.header-admin {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #006bff;
-    color: #fff;
-    width: 100%;
-    padding: 10px 15px;
-}
-
-.admin-profile {
-    width: auto;
-    display: flex;
-    align-items: center;
-    height: 65px;
-}
-
-.admin-avtar {
-    width: 50px;
-    border-radius: 50%;
-}
-
-.admin-profile .account {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 5px 10px;
-    text-decoration: none;
-    color: #fff;
-    font-size: 1rem;
-    font-weight: 600;
-}
-
-.table thead tr th{
+.table thead tr th {
     font-weight: 400 !important;
     padding: 15px 0px;
 }
 
-.table tbody tr{
+.table tbody tr {
     border-bottom: 1px solid #dee2e6;
     font-size: 14px;
 }
 
-.table tbody tr td .profile-img{
+.table tbody tr td .profile-img {
     width: 100%;
     max-width: 50px;
 }

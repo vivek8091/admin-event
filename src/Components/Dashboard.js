@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import adminLogo from "../assets/admin-logo.jpg";
+// import { Link } from "react-router-dom";
+// import adminLogo from "../assets/admin-logo.jpg";
 import { useState } from "react";
 
 const initialUsers = [
@@ -72,20 +72,6 @@ function Dashboard() {
   };
   return (
     <>
-      <header className="header-admin">
-        <div className="header-title">
-          <h5>Admin</h5>
-        </div>
-        <div className="admin-profile">
-          <Link to="/UserAccountDetails" className="account">
-            <img src={adminLogo} alt="user_logo" className="admin-avtar" />
-            <span className="username">
-              Event Management <br /> Admin
-            </span>
-          </Link>
-        </div>
-      </header>
-
       <div className="container mt-4">
         <div className="table-responsive">
           <table className="table table-borderless text-center">

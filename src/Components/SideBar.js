@@ -1,5 +1,5 @@
-import { NavLink } from "react-router-dom";
-
+import { NavLink, Link } from "react-router-dom";
+import adminLogo from "../assets/admin-logo.jpg";
 
 function SideBar() {
   return (
@@ -44,6 +44,23 @@ function SideBar() {
             </NavLink>
           </li>
         </ul>
+      </div>
+
+      <div className="main-content">
+        {/* Topbar */}
+        <header className="header-admin">
+          <div className="header-title">
+            <h5>Admin</h5>
+          </div>
+          <div className="admin-profile">
+            <Link to="/UserAccountDetails" className="account">
+              <img src={adminLogo} alt="user_logo" className="admin-avtar" />
+              <span className="username">
+                Event Management <br /> Admin
+              </span>
+            </Link>
+          </div>
+        </header>      
       </div>
     </>
   );
