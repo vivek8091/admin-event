@@ -1,10 +1,52 @@
-function SideBar(){
-    return(
-        <>
-            Sidebar
-        </>
-    );
-}
+import { NavLink } from "react-router-dom";
 
+
+function SideBar() {
+  return (
+    <>
+      <div className="sidebar">
+        <ul className="menu">
+          <li>
+            <NavLink to="/">
+              <i className="fa fa-users icon"></i> User List
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/AddEvent">
+              <i className="fa fa-calendar icon"></i> Event Post
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/AddCategory">
+              <i className="fa fa-layer-group icon"></i> Post Category
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/AddGallary">
+              <i className="fa fa-image icon"></i> Add Gallary
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/ContactList">
+              <i className="fa fa-address-book icon"></i> Contact List
+            </NavLink>
+          </li>
+        </ul>
+
+        <hr />
+
+        <div className="auth-section">Authentication</div>
+
+        <ul className="menu">
+          <li>
+            <NavLink to="/Login">
+              <i className="fa fa-sign-out-alt icon"></i> Log Out
+            </NavLink>
+          </li>
+        </ul>
+      </div>
+    </>
+  );
+}
 
 export default SideBar;

@@ -1,7 +1,9 @@
+/* Login Page CSS */
+
 .login-section {
     position: relative;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     background: url(../assets/login-bg.jpg);
     background-size: cover;
     background-position: center;
@@ -60,4 +62,127 @@
     .login-section .login-form {
         width: 90%;
     }
+}
+
+
+/* Sidebar CSS */
+
+.layout {
+    display: flex;
+    height: 100vh;
+}
+
+.content {
+    flex: 1;
+    margin-left: 230px;
+    overflow-y: auto;
+    height: 100vh;
+}
+
+.sidebar {
+    width: 230px;
+    height: 100vh;
+    background: white;
+    border-right: 1px solid #ddd;
+    padding: 20px 10px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.menu {
+    list-style: none;
+    padding: 0;
+}
+
+.menu li {
+    margin-bottom: 10px;
+}
+
+.menu a {
+    display: flex;
+    align-items: baseline;
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.menu a:hover {
+    background: #f5f5f5;
+}
+
+.icon {
+    margin-right: 10px;
+    font-size: 18px;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 15px 0;
+}
+
+.auth-section {
+    font-size: 14px;
+    color: gray;
+    padding: 10px 15px;
+}
+
+
+
+/* Dashboard page CSS */
+
+.header-admin {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #006bff;
+    color: #fff;
+    width: 100%;
+    padding: 10px 15px;
+}
+
+.admin-profile {
+    width: auto;
+    display: flex;
+    align-items: center;
+    height: 65px;
+}
+
+.admin-avtar {
+    width: 50px;
+    border-radius: 50%;
+}
+
+.admin-profile .account {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 5px 10px;
+    text-decoration: none;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.table thead tr th{
+    font-weight: 400 !important;
+    padding: 15px 0px;
+}
+
+.table tbody tr{
+    border-bottom: 1px solid #dee2e6;
+    font-size: 14px;
+}
+
+.table tbody tr td .profile-img{
+    width: 100%;
+    max-width: 50px;
 }

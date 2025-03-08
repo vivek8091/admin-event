@@ -15,16 +15,16 @@ function App() {
   return (
     <>
       <Routes>
+        <Route path="/Login" element={<Login />} />
         <Route element={<Layout />}>
-          <Route path="/Dashboard" element={<Dashboard />}/>
-          <Route path="/" element={<Login />}/>
-          <Route path="/AddEvent" element={<AddEvent />}/>
-          <Route path="/AddCategory" element={<AddCategory />}/>
-          <Route path="/AddGallary" element={<AddGallary />}/>
-          <Route path="/UserProfile" element={<UserProfile />}/>
-          <Route path="/ChangePassword" element={<ChangePassword />}/>
-          <Route path="/ContactList" element={<ContactList />}/>
-          <Route path="/" element={<Dashboard />}/>
+          <Route path="/" element={<Dashboard />} />
+
+          <Route path="/AddEvent" element={<AddEvent />} />
+          <Route path="/AddCategory" element={<AddCategory />} />
+          <Route path="/AddGallary" element={<AddGallary />} />
+          <Route path="/UserProfile" element={<UserProfile />} />
+          <Route path="/ChangePassword" element={<ChangePassword />} />
+          <Route path="/ContactList" element={<ContactList />} />
         </Route>
       </Routes>
     </>
