@@ -47,7 +47,6 @@ function SideBar() {
       </div>
 
       <div className="main-content">
-        {/* Topbar */}
         <header className="header-admin">
           <div className="header-title">
             <h5>Admin</h5>
@@ -60,7 +59,7 @@ function SideBar() {
               </span>
             </Link>
           </div>
-        </header>      
+        </header>
       </div>
     </>
   );

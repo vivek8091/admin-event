@@ -5,13 +5,6 @@ function Layout() {
   const location = useLocation();
   return (
     <>
-      {/* <div
-        id="main-container"
-        style={{ overflowY: "auto", height: "100vh", overflowX: "hidden" }}
-      >
-        <Outlet /> 
-      </div> */}
-
       <div className="layout">
         {location.pathname !== "/Login" && <SideBar />}
         <div className="content">
