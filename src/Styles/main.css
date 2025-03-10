@@ -61,8 +61,8 @@
 /* Sidebar CSS */
 
 .layout {
-    display: flex;
     height: 100vh;
+    overflow-y: hidden !important;
 }
 
 .sidebar {
@@ -71,7 +71,7 @@
     background: white;
     border-right: 1px solid #ddd;
     padding: 20px 10px;
-    position: fixed;
+    position: absolute;
     left: 0;
     top: 0;
     bottom: 0;
@@ -81,16 +81,13 @@
 
 .header-admin {
     width: calc(100% - 230px);
+    margin-left: 230px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     background-color: #006bff;
     color: #fff;
     padding: 10px 15px;
-    position: fixed;
-    top: 0;
-    left: 230px;
-    z-index: 1000;
     box-sizing: border-box;
 }
 
@@ -117,11 +114,9 @@
 
 /* Content Area */
 .content {
-    flex: 1;
     margin-left: 230px;
-    margin-top: 65px;
-    overflow-y: auto;
-    height: calc(100vh - 65px);
+    overflow-y: scroll;
+    height: calc(100vh - 70px);
     padding: 20px;
 }
 
