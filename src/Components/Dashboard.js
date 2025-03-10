@@ -1,5 +1,3 @@
-// import { Link } from "react-router-dom";
-// import adminLogo from "../assets/admin-logo.jpg";
 import { useState } from "react";
 
 const initialUsers = [
