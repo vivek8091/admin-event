@@ -70,7 +70,7 @@ function Dashboard() {
   };
   return (
     <>
-      <div className="container mt-4">
+      <div className="container">
         <div className="table-responsive">
           <table className="table table-borderless text-center">
             <thead className="table-dark">
