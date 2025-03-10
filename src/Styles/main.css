@@ -87,7 +87,7 @@
     justify-content: space-between;
     background-color: #006bff;
     color: #fff;
-    padding: 10px 15px;
+    padding: 10px 2rem;
     box-sizing: border-box;
 }
 
@@ -271,4 +271,14 @@ hr {
 .table tbody tr td .cat-img{
     width: 100%;
     max-width: 60px;
+}
+
+
+/* Add gallary CSS */
+
+.add-gallary {
+    width: 100%;
+    max-width: 500px;
+    margin: auto;
+    margin-top: 1rem;
 }
