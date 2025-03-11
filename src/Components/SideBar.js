@@ -13,7 +13,7 @@ function SideBar() {
           </li>
           <li>
             <NavLink to="/AddEvent">
-              <i className="fa fa-calendar icon"></i> Event Post
+              <i className="fa fa-calendar icon"></i> Post Event
             </NavLink>
           </li>
           <li>
@@ -52,7 +52,7 @@ function SideBar() {
             <h5>Admin</h5>
           </div>
           <div className="admin-profile">
-            <Link to="/UserAccountDetails" className="account">
+            <Link to="/UserProfile" className="account">
               <img src={adminLogo} alt="user_logo" className="admin-avtar" />
               <span className="username">
                 Event Management <br /> Admin

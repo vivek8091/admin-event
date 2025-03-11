@@ -6,7 +6,6 @@ import AddEvent from "./Components/AddEvent";
 import AddCategory from "./Components/AddCategory";
 import AddGallary from "./Components/AddGallary";
 import UserProfile from "./Components/UserProfile";
-import ChangePassword from "./Components/ChangePassword";
 import ContactList from "./Components/ContactList";
 import Login from "./Components/Login";
 import "./Styles/main.css";
@@ -23,7 +22,6 @@ function App() {
           <Route path="/AddCategory" element={<AddCategory />} />
           <Route path="/AddGallary" element={<AddGallary />} />
           <Route path="/UserProfile" element={<UserProfile />} />
-          <Route path="/ChangePassword" element={<ChangePassword />} />
           <Route path="/ContactList" element={<ContactList />} />
         </Route>
       </Routes>

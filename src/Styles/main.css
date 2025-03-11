@@ -284,4 +284,17 @@ hr {
 }
 
 
-/* Contact list CSS */
+/* User profile CSS */
+
+
+.user-account .user-logo img{
+    width: 120px;
+}
+
+.user-account .buttons{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+    margin-top: 1rem;
+}
