@@ -64,6 +64,10 @@ function AddEvent() {
           ></textarea>
           <label for="floatingTextarea">Description</label>
         </div>
+
+        <button type="submit" class="btn btn-primary w-100 mb-5">
+          Post
+        </button>
       </div>
     </>
   );
