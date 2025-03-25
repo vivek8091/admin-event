@@ -69,7 +69,7 @@ function UserProfile() {
                     <label className="form-label">Email</label>
                     <input
                       type="email"
-                      className="form-control mb-2"
+                      className="form-control"
                       name="email"
                       value={userDetails.email}
                       onChange={handleUserDetailsChange}
@@ -77,7 +77,7 @@ function UserProfile() {
                     />
                   </div>
                 </div>
-                <button type="submit" className="btn btn-primary float-end">
+                <button type="submit" className="btn btn-primary float-end mt-2">
                   Update
                 </button>
               </form>
@@ -121,7 +121,7 @@ function UserProfile() {
                     />
                   </div>
                 </div>
-                <button type="submit" className="btn btn-primary float-end">
+                <button type="submit" className="btn btn-primary float-end mt-2">
                   Update
                 </button>
               </form>
