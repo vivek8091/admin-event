@@ -179,8 +179,9 @@ hr {
 }
 
 .table tbody tr td .profile-img {
-    width: 100%;
-    max-width: 50px;
+    max-width: 100%;
+    width: 70px;
+    height: 70px;
 }
 
 
@@ -251,7 +252,7 @@ hr {
 
 /* Add Category CSS */
 
-.cat-table{
+.cat-table {
     max-width: 1100px;
     margin: auto;
 }
@@ -263,12 +264,12 @@ hr {
     margin-top: 1rem;
 }
 
-.delete-icon{
+.delete-icon {
     font-size: 1.5rem;
     cursor: pointer;
 }
 
-.table tbody tr td .cat-img{
+.table tbody tr td .cat-img {
     width: 100%;
     max-width: 60px;
 }
@@ -287,11 +288,11 @@ hr {
 /* User profile CSS */
 
 
-.user-account .user-logo img{
+.user-account .user-logo img {
     width: 120px;
 }
 
-.user-account .buttons{
+.user-account .buttons {
     display: flex;
     align-items: center;
     justify-content: flex-start;

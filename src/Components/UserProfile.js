@@ -77,7 +77,10 @@ function UserProfile() {
                     />
                   </div>
                 </div>
-                <button type="submit" className="btn btn-primary float-end mt-2">
+                <button
+                  type="submit"
+                  className="btn btn-primary float-end mt-2"
+                >
                   Update
                 </button>
               </form>
@@ -121,7 +124,10 @@ function UserProfile() {
                     />
                   </div>
                 </div>
-                <button type="submit" className="btn btn-primary float-end mt-2">
+                <button
+                  type="submit"
+                  className="btn btn-primary float-end mt-2"
+                >
                   Update
                 </button>
               </form>

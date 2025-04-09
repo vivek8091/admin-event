@@ -1,64 +1,23 @@
-import { useState } from "react";
-
-const initialUsers = [
-  {
-    id: 1,
-    name: "Vishal",
-    email: "vishalbavaliya21@gmail.com",
-    gender: "male",
-    phone: "7755934563",
-    image: "https://i.pravatar.cc/50?img=1",
-    isBlocked: true,
-  },
-  {
-    id: 2,
-    name: "uday",
-    email: "u@gmail.com",
-    gender: "male",
-    phone: "7777777777",
-    image: "https://i.pravatar.cc/50?img=2",
-    isBlocked: true,
-  },
-  {
-    id: 3,
-    name: "aj",
-    email: "ajay@gmail.com",
-    gender: "male",
-    phone: "9999999999",
-    image: "https://i.pravatar.cc/50?img=3",
-    isBlocked: true,
-  },
-  {
-    id: 4,
-    name: "jani",
-    email: "jani@gmail.com",
-    gender: "male",
-    phone: "7852152960",
-    image: "https://i.pravatar.cc/50?img=4",
-    isBlocked: true,
-  },
-  {
-    id: 5,
-    name: "titu",
-    email: "titu@gmail.com",
-    gender: "male",
-    phone: "7852152969",
-    image: "https://i.pravatar.cc/50?img=5",
-    isBlocked: true,
-  },
-  {
-    id: 6,
-    name: "khushbu",
-    email: "khushi@gmail.com",
-    gender: "Female",
-    phone: "1234567891",
-    image: "https://i.pravatar.cc/50?img=6",
-    isBlocked: true,
-  },
-];
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 function Dashboard() {
-  const [users, setUsers] = useState(initialUsers);
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    fetchRegisteredUsers();
+  }, []);
+
+  const fetchRegisteredUsers = async () => {
+    try {
+      const res = await axios.get("http://localhost:2121/api/users/getUsers/");
+      console.log("Fetched Users", res.data);
+      
+      setUsers(res.data.data);
+    } catch (error) {
+      console.error("Failed to fetch users", error);
+    }
+  };
 
   // Function to toggle block/unblock status
   const toggleBlockStatus = (id) => {
@@ -85,32 +44,40 @@ function Dashboard() {
               </tr>
             </thead>
             <tbody>
-              {users.map((user, index) => (
-                <tr key={user.id} className="align-middle">
-                  <td>{index + 1}</td>
-                  <td>
-                    <img
-                      src={user.image}
-                      alt="Profile"
-                      className="rounded-circle profile-img"
-                    />
-                  </td>
-                  <td>{user.name}</td>
-                  <td>{user.email}</td>
-                  <td>{user.gender}</td>
-                  <td>{user.phone}</td>
-                  <td>
-                    <button
-                      className={`btn btn-sm ${
-                        user.isBlocked ? "btn-success" : "btn-danger"
-                      }`}
-                      onClick={() => toggleBlockStatus(user.id)}
-                    >
-                      {user.isBlocked ? "Unblock" : "Block"}
-                    </button>
+              {users.length > 0 ? (
+                users.map((user, index) => (
+                  <tr key={user.id} className="align-middle">
+                    <td>{index + 1}</td>
+                    <td>
+                      <img
+                        src={`http://localhost:2121/uploads/${user.image}`}
+                        alt={user.name}
+                        className="rounded-circle profile-img"
+                      />
+                    </td>
+                    <td>{user.name}</td>
+                    <td>{user.email}</td>
+                    <td>{user.gender}</td>
+                    <td>{user.mobile_no}</td>
+                    <td>
+                      <button
+                        className={`btn btn-sm ${
+                          user.isBlocked ? "btn-success" : "btn-danger"
+                        }`}
+                        onClick={() => toggleBlockStatus(user.id)}
+                      >
+                        {user.isBlocked ? "Unblock" : "Block"}
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="7" className="text-center">
+                    No users found
                   </td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </table>
         </div>
