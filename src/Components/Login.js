@@ -4,39 +4,39 @@ function Login() {
       <section className="login-section">
         <div className="login-form">
           <form>
-            <div class="mb-3">
-              <label for="email" class="form-label">
+            <div className="mb-3">
+              <label for="email" className="form-label">
                 Email
               </label>
               <input
                 type="email"
-                class="form-control"
+                className="form-control"
                 id="email"
                 aria-describedby="emailHelp"
               />
             </div>
-            <div class="mb-3">
-              <label for="password" class="form-label">
+            <div className="mb-3">
+              <label for="password" className="form-label">
                 Password
               </label>
               <input
                 type="password"
-                class="form-control"
+                className="form-control"
                 id="password"
               />
             </div>
-            <div class="mb-3 form-check">
+            <div className="mb-3 form-check">
               <input
                 type="checkbox"
-                class="form-check-input"
+                className="form-check-input"
                 id="exampleCheck1"
               />
-              <label class="form-check-label" for="exampleCheck1">
+              <label className="form-check-label" for="exampleCheck1">
                 Remember Me
               </label>
             </div>
 
-            <button type="submit" class="btn btn-primary w-100">
+            <button type="submit" className="btn btn-primary w-100">
               Log In
             </button>
           </form>

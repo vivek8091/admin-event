@@ -35,7 +35,7 @@ function AddCategory() {
     <>
       <div className="event-title mt-3">
         <div className="event-logo">
-          <i class="fa-solid fa-layer-group"></i>
+          <i className="fa-solid fa-layer-group"></i>
         </div>
         <h5>Add Category</h5>
       </div>
@@ -43,8 +43,8 @@ function AddCategory() {
       <div className="add-category">
         <div className="mb-4 file-input-container">
           <input type="file" className="file-input" id="file" />
-          <label for="file" class="custom-file-label">
-            <span class="choose-btn">Choose an Image</span>
+          <label for="file" className="custom-file-label">
+            <span className="choose-btn">Choose an Image</span>
           </label>
         </div>
         <div className="mb-4">
@@ -55,7 +55,7 @@ function AddCategory() {
           />
         </div>
 
-        <button type="submit" class="btn btn-primary w-100">
+        <button type="submit" className="btn btn-primary w-100">
           Post
         </button>
       </div>
@@ -83,7 +83,7 @@ function AddCategory() {
                     />
                   </td>
                   <td>{user.name}</td>
-                  <td><i class="fa-solid fa-trash delete-icon"></i></td>
+                  <td><i className="fa-solid fa-trash delete-icon"></i></td>
                 </tr>
               ))}
             </tbody>
