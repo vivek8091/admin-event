@@ -1,36 +1,90 @@
-
-const catData = [
-    {
-        id: 1,
-        image: "https://i.pravatar.cc/50?img=1",
-        name: "cricket", 
-    },
-    {
-        id: 2,
-        image: "https://i.pravatar.cc/50?img=3",
-        name: "cristmas",
-    },
-    {
-        id: 3,
-        image: "https://i.pravatar.cc/50?img=5",
-        name: "food zone",
-    },
-    {
-        id: 4,
-        image: "https://i.pravatar.cc/50?img=1",
-        name: "festival",
-    },
-    {
-        id: 5,
-        image: "https://i.pravatar.cc/50?img=6",
-        name: "party",
-    },
-];
-
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 function AddCategory() {
+  const [catData, setCatData] = useState({
+    category_title: "",
+    image: "",
+  });
 
-    // const [categories] = useState(catData);
+  const [catList, setCatList] = useState([]);
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
+  const fetchCategories = async (e) => {
+    try {
+      const res = await axios.get(
+        "http://localhost:2121/api/category/getCategory/"
+      );
+      setCatList(res.data.data);
+      console.log(res.data);
+    } catch (error) {
+      console.error("Error while fetching categories!!!", error);
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setCatData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+  const handleFileChange = (e) => {
+    setCatData((prev) => ({
+      ...prev,
+      image: e.target.files[0],
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const payload = new FormData();
+      payload.append("category_title", catData.category_title);
+      payload.append("image", catData.image);
+      const res = await axios.post(
+        "http://localhost:2121/api/category/addCategory",
+        payload,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      fetchCategories();
+
+      setCatData({
+        category_title: "",
+        image: "",
+      });
+
+      document.getElementById("file").value = null;
+      console.log(res.data);
+      alert("Category posted successfully...");
+    } catch (error) {
+      console.error("Could not post category!!!");
+      alert("Category not posted successfully!!!");
+    }
+  };
+
+  const deleteCategory = async (id) => {
+    if (!window.confirm("Are you sure you want to delete this category?"))
+      return;
+    try {
+      await axios.delete(
+        `http://localhost:2121/api/category/deleteCategory/${id}`
+      );
+      fetchCategories();
+      alert("Category deleted successfully...");
+    } catch (error) {
+      console.error("Error while deleting category!!!", error);
+      alert("Failed to delete category");
+    }
+  };
+
   return (
     <>
       <div className="event-title mt-3">
@@ -41,23 +95,34 @@ function AddCategory() {
       </div>
 
       <div className="add-category">
-        <div className="mb-4 file-input-container">
-          <input type="file" className="file-input" id="file" />
-          <label for="file" className="custom-file-label">
-            <span className="choose-btn">Choose an Image</span>
-          </label>
-        </div>
-        <div className="mb-4">
-          <input
-            type="text"
-            placeholder="Category Name"
-            className="form-control"
-          />
-        </div>
+        <form onSubmit={handleSubmit}>
+          <div className="mb-4 file-input-container">
+            <input
+              type="file"
+              name="image"
+              onChange={handleFileChange}
+              className="file-input"
+              id="file"
+            />
+            <label htmlFor="file" className="custom-file-label">
+              <span className="choose-btn">Choose an Image</span>
+            </label>
+          </div>
+          <div className="mb-4">
+            <input
+              type="text"
+              name="category_title"
+              value={catData.category_title}
+              onChange={handleChange}
+              placeholder="Category Name"
+              className="form-control"
+            />
+          </div>
 
-        <button type="submit" className="btn btn-primary w-100">
-          Post
-        </button>
+          <button type="submit" className="btn btn-primary w-100">
+            Post
+          </button>
+        </form>
       </div>
 
       <div className="cat-table mt-5">
@@ -72,18 +137,23 @@ function AddCategory() {
               </tr>
             </thead>
             <tbody>
-              {catData.map((user, index) => (
-                <tr key={user.id} className="align-middle">
+              {catList.map((user, index) => (
+                <tr key={user.id || index} className="align-middle">
                   <td>{index + 1}</td>
                   <td>
                     <img
-                      src={user.image}
+                      src={`http://localhost:2121/uploads/${user.image}`}
                       alt="Profile"
                       className="rounded-circle cat-img"
                     />
                   </td>
-                  <td>{user.name}</td>
-                  <td><i className="fa-solid fa-trash delete-icon"></i></td>
+                  <td>{user.category_title}</td>
+                  <td>
+                    <i
+                      className="fa-solid fa-trash delete-icon"
+                      onClick={() => deleteCategory(user.id)}
+                    ></i>
+                  </td>
                 </tr>
               ))}
             </tbody>
