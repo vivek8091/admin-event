@@ -5,19 +5,20 @@ function Dashboard() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
+    const fetchRegisteredUsers = async () => {
+      try {
+        const res = await axios.get(
+          "http://localhost:2121/api/users/getUsers/"
+        );
+        // console.log("Fetched Users", res.data);
+
+        setUsers(res.data.data);
+      } catch (error) {
+        console.error("Failed to fetch users", error);
+      }
+    };
     fetchRegisteredUsers();
   }, []);
-
-  const fetchRegisteredUsers = async () => {
-    try {
-      const res = await axios.get("http://localhost:2121/api/users/getUsers/");
-      console.log("Fetched Users", res.data);
-      
-      setUsers(res.data.data);
-    } catch (error) {
-      console.error("Failed to fetch users", error);
-    }
-  };
 
   // Function to toggle block/unblock status
   const toggleBlockStatus = (id) => {

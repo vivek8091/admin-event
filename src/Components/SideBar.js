@@ -1,7 +1,13 @@
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useNavigate } from "react-router-dom";
 import adminLogo from "../assets/admin-logo.jpg";
 
 function SideBar() {
+
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.removeItem("admin");
+    navigate("/Login");
+  };
   return (
     <>
       <div className="sidebar">
@@ -39,7 +45,7 @@ function SideBar() {
 
         <ul className="menu">
           <li>
-            <NavLink to="/Login">
+            <NavLink onClick={handleLogout}>
               <i className="fa fa-sign-out-alt icon"></i> Log Out
             </NavLink>
           </li>

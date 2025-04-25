@@ -1,7 +1,44 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function AddEvent() {
+  const [eventData, setEventData] = useState([]);
+
+  useEffect(() => {
+    fetchEvents();
+  }, []);
+
+  const fetchEvents = async (e) => {
+    try {
+      const res = await axios.get(
+        "http://localhost:2121/api/events/getEventData/"
+      );
+      setEventData(res.data.data);
+    } catch (error) {
+      console.error("Error while fetching events!!!", error);
+    }
+  };
+
+  const handleTime = (timeString) => {
+    const [hour, minute] = timeString.split(":");
+    const date = new Date();
+    date.setHours(hour, minute);
+    return date.toLocaleTimeString("en-IN", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+    });
+  };
+
+  const handleDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString("en-IN", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    });
+  };
+
   const [events, setEvents] = useState(
     {
       event_title: "",
@@ -35,6 +72,14 @@ function AddEvent() {
     }));
   };
 
+  const handleOptions = (e) => {
+    setSelectedCategory(e.target.value);
+    setEvents((prev) => ({
+      ...prev,
+      event_category_name: e.target.value,
+    }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -59,7 +104,7 @@ function AddEvent() {
           },
         }
       );
-
+      fetchEvents();
       alert("Event posted successfully...");
       console.log(response.data);
 
@@ -77,12 +122,30 @@ function AddEvent() {
       });
       setSelectedCategory("");
       document.getElementById("file").value = null;
-      
     } catch (error) {
       console.error("Error while uploading event!!!", error);
       alert("Failed to post event!!!");
     }
   };
+
+
+
+  const deveteEvent = async (id) => {
+    if (!window.confirm("Are you sure you want to delete this category?"))
+      return;
+    try {
+      await axios.delete(
+        `http://localhost:2121/api/events/deleteEvent/${id}`
+      );
+      fetchEvents();
+      alert("Category deleted successfully...");
+    } catch (error) {
+      console.error("Error while deleting category!!!", error);
+      alert("Failed to delete category");
+    }
+  };
+
+
   return (
     <>
       <div className="event-title mt-3">
@@ -184,13 +247,7 @@ function AddEvent() {
               id="categoryName"
               name="event_category_name"
               value={selectedCategory}
-              onChange={(e) => {
-                setSelectedCategory(e.target.value);
-                setEvents((prev) => ({
-                  ...prev,
-                  event_category_name: e.target.value,
-                }));
-              }}
+              onChange={handleOptions}
               aria-label="Default select example"
             >
               <option value="">Select Category</option>
@@ -226,6 +283,64 @@ function AddEvent() {
           </button>
         </div>
       </form>
+
+      <div className="container-fluid">
+        <div className="table-responsive">
+          <table className="table table-bordered text-center">
+            <thead className="table-dark">
+              <tr>
+                <th>No.</th>
+                <th>Profile</th>
+                <th>Event Title</th>
+                <th>Starting Date</th>
+                <th>Ending Date</th>
+                <th>Starting Time</th>
+                <th>Ending Time</th>
+                <th>Price</th>
+                <th>Category</th>
+                <th>Description</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {eventData.length > 0 ? (
+                eventData.map((events, index) => (
+                  <tr key={events.id} className="align-middle">
+                    <td>{index + 1}</td>
+                    <td>
+                      <img
+                        src={`http://localhost:2121/uploads/${events.event_image}`}
+                        alt={events.event_image}
+                        className="rounded-circle profile-img"
+                      />
+                    </td>
+                    <td>{events.event_title}</td>
+                    <td>{handleDate(events.event_start_date)}</td>
+                    <td>{handleDate(events.event_end_date)}</td>
+                    <td>{handleTime(events.event_start_time)}</td>
+                    <td>{handleTime(events.event_end_time)}</td>
+                    <td>{events.event_price?.toLocaleString("en-IN")}</td>
+                    <td>{events.event_location}</td>
+                    <td>{events.event_description}</td>
+                    <td>
+                      <i
+                        className="fa-solid fa-trash delete-icon"
+                        onClick={() => deveteEvent(events.id)}
+                      ></i>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="7" className="text-center">
+                    No events found
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </>
   );
 }

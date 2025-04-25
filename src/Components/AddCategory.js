@@ -18,7 +18,7 @@ function AddCategory() {
         "http://localhost:2121/api/category/getCategory/"
       );
       setCatList(res.data.data);
-      console.log(res.data);
+      // console.log(res.data);
     } catch (error) {
       console.error("Error while fetching categories!!!", error);
     }
@@ -44,7 +44,7 @@ function AddCategory() {
       const payload = new FormData();
       payload.append("category_title", catData.category_title);
       payload.append("image", catData.image);
-      const res = await axios.post(
+       await axios.post(
         "http://localhost:2121/api/category/addCategory",
         payload,
         {
@@ -62,7 +62,7 @@ function AddCategory() {
       });
 
       document.getElementById("file").value = null;
-      console.log(res.data);
+      // console.log(res.data);
       alert("Category posted successfully...");
     } catch (error) {
       console.error("Could not post category!!!");
