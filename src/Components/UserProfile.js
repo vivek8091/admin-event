@@ -1,12 +1,13 @@
+import axios from "axios";
 import adminLogo from "../assets/admin-logo.jpg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function UserProfile() {
   const [activeForm, setActiveForm] = useState("personal");
 
-  const [userDetails, setUserDetails] = useState({
-    name: "John Doe",
-    email: "johndoe@example.com",
+  const [adminDetails, setAdminDetails] = useState({
+    name: "",
+    email: "",
   });
 
   const [passwords, setPasswords] = useState({
@@ -15,15 +16,55 @@ function UserProfile() {
     confirmPassword: "",
   });
 
-  const handleUserDetailsChange = (e) => {
-    setUserDetails({
-      ...userDetails,
+  useEffect(() => {
+    const adminData = localStorage.getItem("admin");
+    if (adminData) {
+      const admin = JSON.parse(adminData);
+      setAdminDetails({
+        name: admin.name || "",
+        email: admin.email || "",
+      });
+    }
+  }, []);
+
+  const handleAdminDetailsChange = (e) => {
+    setAdminDetails({
+      ...adminDetails,
       [e.target.name]: e.target.value,
     });
   };
 
   const handlePasswordChange = (e) => {
     setPasswords({ ...passwords, [e.target.name]: e.target.value });
+  };
+
+  const handleAdminDetailsSubmit = async (e) => {
+    e.preventDefault();
+    const adminData = localStorage.getItem("admin");
+    const parsedAdmin = JSON.parse(adminData);
+    const updatedData = {
+      id: parsedAdmin.id,
+      name: adminDetails.name,
+      email: adminDetails.email,
+    };
+    try {
+      const res = await axios.put(
+        `http://localhost:2121/api/admin/updateAdmin/${updatedData.id}`,
+        updatedData
+      );
+      console.log(res.data);
+      const updatedAdmin = {
+        ...parsedAdmin,
+        name: adminDetails.name,
+        email: adminDetails.email,
+      };
+      localStorage.setItem("admin", JSON.stringify(updatedAdmin));
+      setAdminDetails({
+        name: updatedAdmin.name,
+        email: updatedAdmin.email,
+      });
+      alert("Admin details updated successfully...");
+    } catch (error) {}
   };
 
   return (
@@ -52,7 +93,7 @@ function UserProfile() {
           {activeForm === "personal" ? (
             <div>
               <h6 className="mb-5">Personal Details</h6>
-              <form>
+              <form onSubmit={handleAdminDetailsSubmit}>
                 <div className="details-from d-flex gap-5">
                   <div className="mb-3">
                     <label className="form-label">Name</label>
@@ -61,8 +102,8 @@ function UserProfile() {
                       name="name"
                       className="form-control"
                       placeholder="Enter your name"
-                      value={userDetails.name}
-                      onChange={handleUserDetailsChange}
+                      value={adminDetails.name}
+                      onChange={handleAdminDetailsChange}
                     />
                   </div>
                   <div className="mb-3">
@@ -71,8 +112,8 @@ function UserProfile() {
                       type="email"
                       className="form-control"
                       name="email"
-                      value={userDetails.email}
-                      onChange={handleUserDetailsChange}
+                      value={adminDetails.email}
+                      onChange={handleAdminDetailsChange}
                       placeholder="Enter your email"
                     />
                   </div>
