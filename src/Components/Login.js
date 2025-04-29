@@ -24,7 +24,8 @@ function Login() {
       console.log("Logged in admin...", res.data.admin);
       navigate("/");
     } catch (error) {
-      
+      console.log(error);
+      alert("Login not successfull!!!");
     }
   };
   return (

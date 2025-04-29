@@ -16,15 +16,35 @@ function UserProfile() {
     confirmPassword: "",
   });
 
+  const getValidAdminFromLocalStorage = () => {
+    try {
+      const data = localStorage.getItem("admin");
+      if (!data) return null;
+      const admin = JSON.parse(data);
+      if (admin?.id && admin?.name && admin?.email) {
+        return admin;
+      }
+    } catch (err) {
+      console.error("Error parsing admin data:", err);
+    }
+    return null;
+  };
+
   useEffect(() => {
-    const adminData = localStorage.getItem("admin");
-    if (adminData) {
-      const admin = JSON.parse(adminData);
+    const admin = getValidAdminFromLocalStorage();
+
+    if (admin) {
       setAdminDetails({
         name: admin.name || "",
         email: admin.email || "",
       });
+      console.log("Admin loaded from localStorage:", admin);
+    } else {
+      alert("Invalid admin session. Please log in again.");
     }
+
+    const newAdmin = JSON.parse(localStorage.getItem("admin"));
+    console.log(newAdmin);
   }, []);
 
   const handleAdminDetailsChange = (e) => {
@@ -40,10 +60,9 @@ function UserProfile() {
 
   const handleAdminDetailsSubmit = async (e) => {
     e.preventDefault();
-    const adminData = localStorage.getItem("admin");
-    const parsedAdmin = JSON.parse(adminData);
+    const admin = getValidAdminFromLocalStorage();
     const updatedData = {
-      id: parsedAdmin.id,
+      id: admin.id,
       name: adminDetails.name,
       email: adminDetails.email,
     };
@@ -54,7 +73,7 @@ function UserProfile() {
       );
       console.log(res.data);
       const updatedAdmin = {
-        ...parsedAdmin,
+        ...admin,
         name: adminDetails.name,
         email: adminDetails.email,
       };
@@ -65,6 +84,42 @@ function UserProfile() {
       });
       alert("Admin details updated successfully...");
     } catch (error) {}
+  };
+
+  const handlePasswordSubmit = async (e) => {
+    e.preventDefault();
+    const admin = JSON.parse(localStorage.getItem("admin"));
+    const adminId = admin?.id;
+    if (passwords.newPassword !== passwords.confirmPassword) {
+      alert("New password and confirmed passowrd does not match!!!");
+      return;
+    }
+
+    try {
+      const response = await axios.put(
+        `http://localhost:2121/api/admin/changePassword/${adminId}`,
+        {
+          oldPassword: passwords.oldPassword,
+          newPassword: passwords.newPassword,
+        }
+      );
+
+      console.log(response.data);
+
+      setPasswords({
+        oldPassword: "",
+        newPassword: "",
+        confirmPassword: "",
+      });
+
+      const updatedAdmin = { ...admin, password: passwords.newPassword };
+      localStorage.setItem("admin", JSON.stringify(updatedAdmin));
+      alert(response.data.message);
+      console.log(localStorage.getItem("admin"));
+    } catch (error) {
+      console.error("Password change failed:", error);
+      alert("Failed to update password. Please check old password.");
+    }
   };
 
   return (
@@ -129,12 +184,15 @@ function UserProfile() {
           ) : (
             <div>
               <h6 className="mb-5">Change Password</h6>
-              <form>
+              <form onSubmit={handlePasswordSubmit}>
                 <div className="password-form d-flex gap-3">
                   <div className="mb-3">
-                    <label className="form-label">Old Password</label>
+                    <label htmlFor="oldPassword" className="form-label">
+                      Old Password
+                    </label>
                     <input
                       type="password"
+                      id="oldPassword"
                       className="form-control"
                       name="oldPassword"
                       value={passwords.oldPassword}
@@ -143,9 +201,12 @@ function UserProfile() {
                     />
                   </div>
                   <div className="mb-3">
-                    <label className="form-label">New Password</label>
+                    <label htmlFor="newPassword" className="form-label">
+                      New Password
+                    </label>
                     <input
                       type="password"
+                      id="newPassword"
                       className="form-control"
                       name="newPassword"
                       value={passwords.newPassword}
@@ -154,9 +215,12 @@ function UserProfile() {
                     />
                   </div>
                   <div className="mb-3">
-                    <label className="form-label">Confirm Password</label>
+                    <label htmlFor="confirmPassword" className="form-label">
+                      Confirm Password
+                    </label>
                     <input
                       type="password"
+                      id="confirmPassword"
                       className="form-control"
                       name="confirmPassword"
                       value={passwords.confirmPassword}
