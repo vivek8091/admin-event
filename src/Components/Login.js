@@ -20,7 +20,7 @@ function Login() {
     e.preventDefault();
     try {
       const res = await axios.post("http://localhost:2121/api/admin/adminLogin/", loginData);
-      localStorage.setItem("admin", JSON.stringify(res.data.admin));
+      sessionStorage.setItem("admin", JSON.stringify(res.data.admin));
       console.log("Logged in admin...", res.data.admin);
       navigate("/");
     } catch (error) {

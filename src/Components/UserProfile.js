@@ -16,9 +16,9 @@ function UserProfile() {
     confirmPassword: "",
   });
 
-  const getValidAdminFromLocalStorage = () => {
+  const getValidAdminFromSession = () => {
     try {
-      const data = localStorage.getItem("admin");
+      const data = sessionStorage.getItem("admin");
       if (!data) return null;
       const admin = JSON.parse(data);
       if (admin?.id && admin?.name && admin?.email) {
@@ -31,19 +31,19 @@ function UserProfile() {
   };
 
   useEffect(() => {
-    const admin = getValidAdminFromLocalStorage();
+    const admin = getValidAdminFromSession();
 
     if (admin) {
       setAdminDetails({
         name: admin.name || "",
         email: admin.email || "",
       });
-      console.log("Admin loaded from localStorage:", admin);
+      console.log("Admin loaded from sessionStorage:", admin);
     } else {
       alert("Invalid admin session. Please log in again.");
     }
 
-    const newAdmin = JSON.parse(localStorage.getItem("admin"));
+    const newAdmin = JSON.parse(sessionStorage.getItem("admin"));
     console.log(newAdmin);
   }, []);
 
@@ -60,7 +60,7 @@ function UserProfile() {
 
   const handleAdminDetailsSubmit = async (e) => {
     e.preventDefault();
-    const admin = getValidAdminFromLocalStorage();
+    const admin = getValidAdminFromSession();
     const updatedData = {
       id: admin.id,
       name: adminDetails.name,
@@ -77,7 +77,7 @@ function UserProfile() {
         name: adminDetails.name,
         email: adminDetails.email,
       };
-      localStorage.setItem("admin", JSON.stringify(updatedAdmin));
+      sessionStorage.setItem("admin", JSON.stringify(updatedAdmin));
       setAdminDetails({
         name: updatedAdmin.name,
         email: updatedAdmin.email,
@@ -88,7 +88,7 @@ function UserProfile() {
 
   const handlePasswordSubmit = async (e) => {
     e.preventDefault();
-    const admin = JSON.parse(localStorage.getItem("admin"));
+    const admin = JSON.parse(sessionStorage.getItem("admin"));
     const adminId = admin?.id;
     if (passwords.newPassword !== passwords.confirmPassword) {
       alert("New password and confirmed passowrd does not match!!!");
@@ -113,9 +113,9 @@ function UserProfile() {
       });
 
       const updatedAdmin = { ...admin, password: passwords.newPassword };
-      localStorage.setItem("admin", JSON.stringify(updatedAdmin));
+      sessionStorage.setItem("admin", JSON.stringify(updatedAdmin));
       alert(response.data.message);
-      console.log(localStorage.getItem("admin"));
+      console.log(sessionStorage.getItem("admin"));
     } catch (error) {
       console.error("Password change failed:", error);
       alert("Failed to update password. Please check old password.");

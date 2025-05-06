@@ -4,7 +4,7 @@ import adminLogo from "../assets/admin-logo.jpg";
 function SideBar() {
   const navigate = useNavigate();
   const handleLogout = () => {
-    localStorage.removeItem("admin");
+    sessionStorage.removeItem("admin");
     navigate("/Login");
   };
   return (
