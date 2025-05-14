@@ -3,12 +3,16 @@ import axios from "axios";
 
 function Dashboard() {
   const [users, setUsers] = useState([]);
-
+  const token = sessionStorage.getItem("token");
   useEffect(() => {
     const fetchRegisteredUsers = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:2121/api/users/getUsers/"
+          "http://localhost:2121/api/admin/getUsers/",{
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
         // console.log("Fetched Users", res.data);
 
@@ -18,7 +22,7 @@ function Dashboard() {
       }
     };
     fetchRegisteredUsers();
-  }, []);
+  }, [token]);
 
   // Function to toggle block/unblock status
   const toggleBlockStatus = (id) => {

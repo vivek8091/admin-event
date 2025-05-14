@@ -5,14 +5,15 @@ function SideBar() {
   const navigate = useNavigate();
   const handleLogout = () => {
     sessionStorage.removeItem("admin");
-    navigate("/Login");
+    sessionStorage.removeItem("token");
+    navigate("/");
   };
   return (
     <>
       <div className="sidebar">
         <ul className="menu">
           <li>
-            <NavLink to="/">
+            <NavLink to="/Dashboard">
               <i className="fa fa-users icon"></i> User List
             </NavLink>
           </li>

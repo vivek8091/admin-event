@@ -21,8 +21,9 @@ function Login() {
     try {
       const res = await axios.post("http://localhost:2121/api/admin/adminLogin/", loginData);
       sessionStorage.setItem("admin", JSON.stringify(res.data.admin));
+      sessionStorage.setItem("token", res.data.token);
       console.log("Logged in admin...", res.data.admin);
-      navigate("/");
+      navigate("/Dashboard");
     } catch (error) {
       console.log(error);
       alert("Login not successfull!!!");
