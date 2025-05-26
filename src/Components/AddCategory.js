@@ -47,14 +47,16 @@ function AddCategory() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const token = sessionStorage.getItem("token");
       const payload = new FormData();
       payload.append("category_title", catData.category_title);
       payload.append("image", catData.image);
-       await axios.post(
+      await axios.post(
         "http://localhost:2121/api/category/addCategory",
         payload,
         {
           headers: {
+            Authorization: `Bearer ${token}`,
             "Content-Type": "multipart/form-data",
           },
         }
@@ -80,8 +82,14 @@ function AddCategory() {
     if (!window.confirm("Are you sure you want to delete this category?"))
       return;
     try {
+      const token = sessionStorage.getItem("token");
       await axios.delete(
-        `http://localhost:2121/api/category/deleteCategory/${id}`
+        `http://localhost:2121/api/category/deleteCategory/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       fetchCategories();
       alert("Category deleted successfully...");
