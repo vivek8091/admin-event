@@ -10,8 +10,14 @@ function AddEvent() {
 
   const fetchEvents = async (e) => {
     try {
+      const token = sessionStorage.getItem("token");
       const res = await axios.get(
-        "http://localhost:2121/api/events/getEventData/"
+        "http://localhost:2121/api/events/getEventData/",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       setEventData(res.data.data);
     } catch (error) {
@@ -128,23 +134,22 @@ function AddEvent() {
     }
   };
 
-
-
   const deveteEvent = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this category?"))
-      return;
+    if (!window.confirm("Are you sure you want to delete this event?")) return;
     try {
-      await axios.delete(
-        `http://localhost:2121/api/events/deleteEvent/${id}`
-      );
+      const token = sessionStorage.getItem("token");
+      await axios.delete(`http://localhost:2121/api/events/deleteEvent/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       fetchEvents();
-      alert("Category deleted successfully...");
+      alert("Event deleted successfully...");
     } catch (error) {
-      console.error("Error while deleting category!!!", error);
-      alert("Failed to delete category");
+      console.error("Error while deleting event!!!", error);
+      alert("Failed to delete event");
     }
   };
-
 
   return (
     <>
@@ -297,6 +302,7 @@ function AddEvent() {
                 <th>Starting Time</th>
                 <th>Ending Time</th>
                 <th>Price</th>
+                <th>Location</th>
                 <th>Category</th>
                 <th>Description</th>
                 <th>Action</th>
@@ -321,6 +327,7 @@ function AddEvent() {
                     <td>{handleTime(events.event_end_time)}</td>
                     <td>{events.event_price?.toLocaleString("en-IN")}</td>
                     <td>{events.event_location}</td>
+                    <td>{events.event_category_name}</td>
                     <td>{events.event_description}</td>
                     <td>
                       <i

@@ -67,9 +67,15 @@ function UserProfile() {
       email: adminDetails.email,
     };
     try {
+      const token = sessionStorage.getItem("token");
       const res = await axios.put(
         `http://localhost:2121/api/admin/updateAdmin/${updatedData.id}`,
-        updatedData
+        updatedData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       console.log(res.data);
       const updatedAdmin = {
@@ -96,11 +102,17 @@ function UserProfile() {
     }
 
     try {
+      const token = sessionStorage.getItem("token");
       const response = await axios.put(
         `http://localhost:2121/api/admin/changePassword/${adminId}`,
         {
           oldPassword: passwords.oldPassword,
           newPassword: passwords.newPassword,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
 

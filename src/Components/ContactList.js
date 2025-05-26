@@ -1,9 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-
 function ContactList() {
-
   const [contactList, setContactList] = useState([]);
   useEffect(() => {
     fetchContacts();
@@ -11,7 +9,15 @@ function ContactList() {
 
   const fetchContacts = async (e) => {
     try {
-      const res = await axios.get("http://localhost:2121/api/contact/getContact/");
+      const token = sessionStorage.getItem("token");
+      const res = await axios.get(
+        "http://localhost:2121/api/contact/getContact/",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       setContactList(res.data.data);
       console.log(res.data);
     } catch (error) {

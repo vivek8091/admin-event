@@ -14,8 +14,14 @@ function AddCategory() {
 
   const fetchCategories = async (e) => {
     try {
+      const token = sessionStorage.getItem("token");
       const res = await axios.get(
-        "http://localhost:2121/api/category/getCategory/"
+        "http://localhost:2121/api/category/getCategory/",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       setCatList(res.data.data);
       // console.log(res.data);

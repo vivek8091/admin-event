@@ -25,6 +25,7 @@ function AddGallary() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const token = sessionStorage.getItem("token");
       const gallary = new FormData();
       gallary.append("gallary_title", gallaryData.gallary_title);
       gallary.append("gallary_image", gallaryData.gallary_image);
@@ -33,6 +34,7 @@ function AddGallary() {
         gallary,
         {
           headers: {
+            Authorization: `Bearer ${token}`,
             "Content-Type": "multipart/form-data",
           },
         }
