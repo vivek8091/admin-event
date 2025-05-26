@@ -89,6 +89,7 @@ function AddEvent() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const token = sessionStorage.getItem("token");
       const payload = new FormData();
       payload.append("event_title", events.event_title);
       payload.append("event_start_date", events.event_start_date);
@@ -106,6 +107,7 @@ function AddEvent() {
         payload,
         {
           headers: {
+            Authorization: `Bearer ${token}`,
             "Content-Type": "multipart/form-data",
           },
         }
