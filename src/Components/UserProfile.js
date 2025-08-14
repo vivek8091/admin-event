@@ -43,8 +43,8 @@ function UserProfile() {
       alert("Invalid admin session. Please log in again.");
     }
 
-    const newAdmin = JSON.parse(sessionStorage.getItem("admin"));
-    console.log(newAdmin);
+    // const newAdmin = JSON.parse(sessionStorage.getItem("admin"));
+    // console.log(newAdmin);
   }, []);
 
   const handleAdminDetailsChange = (e) => {
@@ -116,7 +116,7 @@ function UserProfile() {
         }
       );
 
-      console.log(response.data);
+      // console.log(response.data);
 
       setPasswords({
         oldPassword: "",
